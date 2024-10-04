@@ -77,3 +77,42 @@ def get_comments(request, userId):
         "code": 404,
         "message": "해당 유저의 댓글이 존재하지 않습니다."
     }, status=status.HTTP_404_NOT_FOUND)
+
+
+@swagger_auto_schema(
+    method='get',
+    operation_id='전체 댓글 조회',
+    operation_description='모든 댓글을 조회합니다.',
+    tags=['Comments'],
+    responses={
+        200: "전체 댓글 조회 성공",
+    }
+)
+@api_view(['GET'])
+def get_all_comments(request):
+    """
+    모든 댓글 조회
+    """
+    comments = Comment.objects.all()
+
+    if comments.exists():
+        comment_list = []
+        for comment in comments:
+            comment_list.append({
+                "id": comment.id,
+                "nickname": comment.nickname.nickname,  # 닉네임 출력
+                "comment": comment.comment_text,
+                "created_at": comment.created_at
+            })
+
+        return Response({
+            "code": 200,
+            "message": "전체 댓글 조회 성공",
+            "data": comment_list
+        }, status=status.HTTP_200_OK)
+
+    return Response({
+        "code": 200,
+        "message": "댓글이 존재하지 않습니다.",
+        "data": []
+    }, status=status.HTTP_200_OK)
