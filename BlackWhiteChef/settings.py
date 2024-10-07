@@ -11,9 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = config('DEBUG', default=True, cast=bool)
+ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='localhost').split(',')
 
 
 # Application definition
@@ -28,6 +27,7 @@ INSTALLED_APPS = [
     'drf_yasg',  # Swagger
     'user',
     'comments',
+    'feedbacks',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +119,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'  # 경로는 '/'로 시작해야 합니다.
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # 수집한 정적 파일들이 저장될 디렉토리
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

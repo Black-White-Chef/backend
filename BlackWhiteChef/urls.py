@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/nicknames/', include('user.urls')),  # users 앱의 URL 포함
     path('api/v1/comments/', include('comments.urls')),  # comments 앱의 URL 포함
+    path('api/v1/feedbacks/', include('feedbacks.urls')),
 ]
 
 # Swagger JSON 형식 스키마와 UI를 위한 URL 패턴 추가

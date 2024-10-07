@@ -23,5 +23,5 @@ COPY . /code/
 # 권한 설정 (예: /code 디렉토리와 하위 디렉토리/파일에 대해 권한 설정)
 #RUN chmod -R 755 /code
 
-# Django 서버 실행
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Django 서버 실행 - gunicorn 사용
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "BlackWhiteChef.wsgi:application"]
