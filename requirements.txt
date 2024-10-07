@@ -5,3 +5,4 @@ PyMySQL==1.1.1
 python-decouple
 drf-yasg
 gunicorn
+django-cors-headers
