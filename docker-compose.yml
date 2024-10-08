@@ -16,8 +16,8 @@ services:
 
   web:
     build: .
-    container_name: backend  # 컨테이너 이름을 backend로 변경
-    command: ./wait-for-it.sh mysql-db:3306 -- sh -c "python manage.py migrate && gunicorn --bind 0.0.0.0:8000 BlackWhiteChef.wsgi:application"
+    container_name: backend
+    command: ./wait-for-it.sh mysql-db:3306 -- sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:8000 BlackWhiteChef.wsgi:application"
     volumes:
       - .:/code
     ports:
@@ -26,3 +26,17 @@ services:
       - db
     env_file:
       - .env
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # 로컬 nginx.conf 파일을 컨테이너 내부로 마운트
+      - ./staticfiles:/code/staticfiles               # 정적 파일 경로 마운트
+    environment:
+      SERVER_NAME: ${DJANGO_ALLOWED_HOSTS}  # 환경 변수 설정
+    depends_on:
+      - web
+    command: /bin/sh -c "nginx -g 'daemon off;'"
