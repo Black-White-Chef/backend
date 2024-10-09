@@ -127,6 +127,10 @@ USE_TZ = True
 STATIC_URL = '/static/'  # 경로는 '/'로 시작해야 합니다.
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # 수집한 정적 파일들이 저장될 디렉토리
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
