@@ -17,9 +17,10 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],  # 누구나 API 스키마를 조회할 수 있도록 허용
 )
 
+#swagger -> api/swagger/
 urlpatterns = [
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Swagger UI를 제공하는 URL
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),  # Redoc UI를 제공하는 URL
+    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Swagger UI를 제공하는 URL
+    path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),  # Redoc UI를 제공하는 URL
     path('admin/', admin.site.urls),
     path('api/v1/nicknames/', include('user.urls')),  # users 앱의 URL 포함
     path('api/v1/comments/', include('comments.urls')),  # comments 앱의 URL 포함
