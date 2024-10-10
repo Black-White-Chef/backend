@@ -128,7 +128,7 @@ STATIC_URL = '/static/'  # 경로는 '/'로 시작해야 합니다.
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # 수집한 정적 파일들이 저장될 디렉토리
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 
 # Default primary key field type
